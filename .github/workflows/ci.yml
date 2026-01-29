@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  schedule:
+    - cron: '30 3 * * *'  
+  push:
+    branches:
+      - main
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Make the script executable
+        run: chmod +x hello_world.sh
+
+      - name: Run the hello world script
+        run: ./hello_world.sh
+
+
+      - name: Configure Git
+        run: |
+          git config --local user.name "GitHub Yo Actions"
+          git config --local user.email "actions@github-yo.com"
+
+      - name: Commit and push changes
+        run: |
+          git add new_file.txt new_file2.txt
+          git commit -m "Add new_file.txt new_file2.txt"
+          git push
+
+
+
+
+
+
+
+
+
+
+
+
+
+
