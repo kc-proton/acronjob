@@ -24,8 +24,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --local user.name "GitHub Yo Actions"
-          git config --local user.email "actions@github-yo.com"
+          git config --local user.name "GitHub Actions"
+          git config --local user.email "actions@github.com"
 
       - name: Commit and push changes
         run: |
