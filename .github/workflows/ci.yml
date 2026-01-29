@@ -23,6 +23,12 @@ jobs:
       - name: Run the hello world script
         run: ./hello_world.sh
 
+      - name: cat new_file.txt
+        run: cat new_file.txt
+
+      - name: cat new_file2.txt
+        run: cat new_file2.txt
+
 
       - name: Configure Git
         run: |
