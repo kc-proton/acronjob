@@ -30,16 +30,7 @@ jobs:
         run: cat new_file2.txt
 
 
-      - name: Configure Git
-        run: |
-          git config --local user.name "GitHub Actions"
-          git config --local user.email "actions@github.com"
-
-      - name: Commit and push changes
-        run: |
-          git add new_file.txt new_file2.txt
-          git commit -m "Add new_file.txt new_file2.txt"
-          git push
+    
 
 
 
