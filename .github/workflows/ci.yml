@@ -3,19 +3,25 @@ name: CI
 on:
   schedule:
     - cron: '30 3 * * *'  
-  push:
-    branches:
-      - main
+  
+  workflow_dispatch:
+
+  
+  #push:
+  #  branches:
+  #    - main
 
 jobs:
   run:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          persist-credentials: false
+          persist-credentials: true
 
       - name: Make the script executable
         run: chmod +x hello_world.sh
@@ -28,6 +34,26 @@ jobs:
 
       - name: cat new_file2.txt
         run: cat new_file2.txt
+
+      - name: Update Counter
+        run: |
+          # Create file if it doesn't exist, otherwise read value
+          if [ ! -f counter.txt ]; then
+            echo 0 > counter.txt
+          fi
+          
+          COUNT=$(cat counter.txt)
+          NEW_COUNT=$((COUNT + 1))
+          echo $NEW_COUNT > counter.txt
+          echo "New count is: $NEW_COUNT"
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@://github.com"
+          git add counter.txt
+          git commit -m "Build $GITHUB_RUN_NUMBER: increment counter to $(cat counter.txt)"
+          git push
 
 
     
